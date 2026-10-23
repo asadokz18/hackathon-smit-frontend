@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Bell, Sparkles, AlertCircle, PhoneCall, Gift, CheckCircle } from 'lucide-react';
+import { Bell, Sparkles, AlertCircle, PhoneCall, Gift, CheckCircle, Menu } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-const Header = ({ title }) => {
+const Header = ({ title, onMenuClick }) => {
   const { user, upgradePlan } = useAuth();
   const [showNotifications, setShowNotifications] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -45,26 +45,48 @@ const Header = ({ title }) => {
   };
 
   return (
-    <header className="bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800/60 h-20 px-8 flex items-center justify-between sticky top-0 backdrop-blur-md z-40">
-      {/* Dynamic Title */}
-      <div>
-        <h2 className="text-xl font-bold tracking-tight text-slate-800 dark:text-white capitalize font-sans">
-          {title.replace('-', ' ')}
+    <header className="bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800/60 min-h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between sticky top-0 backdrop-blur-md z-40 gap-3">
+      {/* Left: Hamburger + Title */}
+      <div className="flex items-center gap-3 min-w-0">
+        {/* Hamburger — only on mobile */}
+        <button
+          onClick={onMenuClick}
+          className="lg:hidden p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all shrink-0"
+          aria-label="Open menu"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+
+        {/* Dynamic Title */}
+        <h2 className="text-base sm:text-xl font-bold tracking-tight text-slate-800 dark:text-white capitalize font-sans truncate">
+          {title.replace(/-/g, ' ')}
         </h2>
       </div>
 
-      {/* Actions */}
-      <div className="flex items-center gap-6">
+      {/* Right: Actions */}
+      <div className="flex items-center gap-2 sm:gap-4 shrink-0">
         
         {/* Free Plan Upgrade Callout */}
         {user && user.subscriptionPlan === 'free' && (
           <button
             onClick={handleUpgrade}
             disabled={loading}
-            className="flex items-center gap-2 bg-gradient-to-r from-amber-500 via-indigo-600 to-brand-600 hover:from-amber-600 hover:to-brand-700 text-white px-4 py-2 rounded-xl text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-md shadow-brand-500/10 hover:shadow-brand-500/20 pulse-indicator hover:scale-105 active:scale-95 disabled:opacity-50"
+            className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 via-indigo-600 to-brand-600 hover:from-amber-600 hover:to-brand-700 text-white px-3 py-2 rounded-xl text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-md shadow-brand-500/10 hover:shadow-brand-500/20 pulse-indicator hover:scale-105 active:scale-95 disabled:opacity-50"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>{loading ? 'Upgrading...' : 'Upgrade Clinic to Pro'}</span>
+            <span className="hidden sm:block">{loading ? 'Upgrading...' : 'Upgrade to Pro'}</span>
+          </button>
+        )}
+
+        {/* Mobile upgrade button (icon only) */}
+        {user && user.subscriptionPlan === 'free' && (
+          <button
+            onClick={handleUpgrade}
+            disabled={loading}
+            className="sm:hidden p-2 rounded-xl bg-gradient-to-r from-amber-500 to-brand-600 text-white shadow-md disabled:opacity-50"
+            title="Upgrade to Pro"
+          >
+            <Sparkles className="w-4 h-4" />
           </button>
         )}
 
@@ -90,7 +112,7 @@ const Header = ({ title }) => {
 
           {/* Notifications Dropdown */}
           {showNotifications && (
-            <div className="absolute right-0 mt-3 w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl z-50 py-2 fade-in">
+            <div className="absolute right-0 mt-3 w-72 sm:w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl z-50 py-2 fade-in">
               <div className="px-4 py-2 border-b border-slate-100 dark:border-slate-800/80 flex justify-between items-center">
                 <span className="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider">Clinical Notifications</span>
                 <button

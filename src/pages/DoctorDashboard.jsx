@@ -338,12 +338,12 @@ const DoctorDashboard = ({ activeTab }) => {
   if (!stats) return <div className="p-8">Failed to download doctor metrics.</div>;
 
   return (
-    <div className="p-8 space-y-8 fade-in">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 lg:space-y-8 fade-in">
       
       {/* 1. OVERVIEW SCREEN */}
       {activeTab === 'overview' && (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
             <StatCard
               title="Today's Consultation Load"
               value={stats.stats.dailyAppointmentsCount}
@@ -467,11 +467,11 @@ const DoctorDashboard = ({ activeTab }) => {
             </div>
           ) : (
             /* Prescription & Consultation Workspace */
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
               
               {/* Prescriptions Form */}
               <div className="xl:col-span-2 space-y-6">
-                <div className="flex justify-between items-center bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800/80">
+                <div className="flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center bg-white dark:bg-slate-900 p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800/80">
                   <div>
                     <span className="text-[9px] uppercase font-extrabold tracking-widest text-brand-500 block mb-1">Active Consultation Portal</span>
                     <h3 className="text-lg font-bold text-slate-800 dark:text-white">Prescription Desk & Dosage Planner</h3>
@@ -741,7 +741,7 @@ const DoctorDashboard = ({ activeTab }) => {
 
       {/* 3. AI SMART DIAGNOSIS HUB PANEL */}
       {activeTab === 'diagnose' && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
           {/* Diagnostic Console Inputs */}
           <div className="lg:col-span-1 space-y-6">
@@ -960,7 +960,7 @@ const DoctorDashboard = ({ activeTab }) => {
               </div>
             ) : (
               prescriptions.map((pr) => (
-                <div key={pr._id} className="p-6 hover:bg-slate-50/50 dark:hover:bg-slate-850/10 flex justify-between items-center gap-4 transition-all">
+                <div key={pr._id} className="p-4 sm:p-6 hover:bg-slate-50/50 dark:hover:bg-slate-850/10 flex flex-col sm:flex-row justify-between sm:items-center gap-4 transition-all">
                   <div>
                     <div className="flex items-center gap-3 mb-1">
                       <span className="font-bold text-slate-800 dark:text-white">{pr.patientId.name}</span>

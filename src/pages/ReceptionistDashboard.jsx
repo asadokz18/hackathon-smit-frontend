@@ -182,7 +182,7 @@ const ReceptionistDashboard = ({ activeTab }) => {
   if (loading) return <Loading message="Syncing operational grid..." />;
 
   return (
-    <div className="p-8 space-y-8 fade-in">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 lg:space-y-8 fade-in">
 
       {/* Simulated Notification Alerts */}
       {feedbackLog && (
@@ -194,7 +194,7 @@ const ReceptionistDashboard = ({ activeTab }) => {
 
       {/* 1. PATIENT REGISTRY WORKSPACE */}
       {activeTab === 'patients' && (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           
           {/* Registration Desk Form */}
           <div className="xl:col-span-1 space-y-6">
@@ -372,7 +372,7 @@ const ReceptionistDashboard = ({ activeTab }) => {
 
       {/* 2. APPOINTMENT SCHEDULER WIZARD */}
       {activeTab === 'schedule' && (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           
           {/* Scheduling Form */}
           <div className="xl:col-span-1 space-y-6">
@@ -469,7 +469,7 @@ const ReceptionistDashboard = ({ activeTab }) => {
                   </div>
                 ) : (
                   appointments.map((appt) => (
-                    <div key={appt._id} className="p-6 hover:bg-slate-50/50 dark:hover:bg-slate-850/10 flex justify-between items-center gap-4 transition-all">
+                    <div key={appt._id} className="p-4 sm:p-6 hover:bg-slate-50/50 dark:hover:bg-slate-850/10 flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center transition-all">
                       <div>
                         <div className="flex items-center gap-3 mb-1">
                           <span className="font-bold text-slate-800 dark:text-white">{appt.patientId.name}</span>

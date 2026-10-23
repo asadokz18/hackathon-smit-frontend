@@ -14,10 +14,11 @@ import {
   ShieldAlert,
   UserCog,
   HeartPulse,
-  FolderLock
+  FolderLock,
+  X
 } from 'lucide-react';
 
-const Sidebar = ({ activeTab, setActiveTab }) => {
+const Sidebar = ({ activeTab, setActiveTab, isOpen, onClose }) => {
   const { user, logout } = useAuth();
   const { darkMode, toggleDarkMode } = useTheme();
 
@@ -66,26 +67,41 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     patient: 'bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/20',
   };
 
-  return (
-    <aside className="w-80 bg-slate-900 border-r border-slate-800 text-slate-100 flex flex-col justify-between h-screen sticky top-0 shrink-0 select-none">
+  const handleNavClick = (id) => {
+    setActiveTab(id);
+    if (onClose) onClose(); // close drawer on mobile after navigation
+  };
+
+  const sidebarContent = (
+    <aside className="w-72 sm:w-80 bg-slate-900 border-r border-slate-800 text-slate-100 flex flex-col justify-between h-full select-none">
       <div>
         {/* MedPulse SaaS Logo */}
-        <div className="p-6 border-b border-slate-800 flex items-center gap-3">
-          <div className="p-2 rounded-xl bg-gradient-to-tr from-brand-600 to-clinical-500 shadow-lg pulse-indicator">
-            <HeartPulse className="w-6 h-6 text-white" />
+        <div className="p-5 border-b border-slate-800 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-xl bg-gradient-to-tr from-brand-600 to-clinical-500 shadow-lg pulse-indicator">
+              <HeartPulse className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-clinical-400 font-sans">
+                MEDPULSE AI
+              </h1>
+              <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Clinic SaaS Tier</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-clinical-400 font-sans">
-              MEDPULSE AI
-            </h1>
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Clinic SaaS Tier</p>
-          </div>
+          {/* Close button - only visible on mobile (lg:hidden) */}
+          <button
+            onClick={onClose}
+            className="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all"
+            aria-label="Close sidebar"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
         {/* User Card */}
-        <div className="p-6 border-b border-slate-800 bg-slate-950/40">
+        <div className="p-5 border-b border-slate-800 bg-slate-950/40">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-500 to-clinical-400 flex items-center justify-center font-bold text-white text-base shadow-inner uppercase">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-500 to-clinical-400 flex items-center justify-center font-bold text-white text-base shadow-inner uppercase shrink-0">
               {user.name.charAt(0)}
             </div>
             <div className="overflow-hidden">
@@ -119,15 +135,15 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
             return (
               <button
                 key={link.id}
-                onClick={() => setActiveTab(link.id)}
+                onClick={() => handleNavClick(link.id)}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150 ${
                   isActive
                     ? 'bg-gradient-to-r from-brand-600/20 to-clinical-600/10 text-brand-400 border-l-4 border-brand-500'
                     : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
                 }`}
               >
-                <Icon className={`w-5 h-5 ${isActive ? 'text-brand-400' : 'text-slate-400'}`} />
-                <span>{link.label}</span>
+                <Icon className={`w-5 h-5 shrink-0 ${isActive ? 'text-brand-400' : 'text-slate-400'}`} />
+                <span className="truncate">{link.label}</span>
               </button>
             );
           })}
@@ -160,6 +176,30 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         </button>
       </div>
     </aside>
+  );
+
+  return (
+    <>
+      {/* Desktop Sidebar — always visible on lg+ */}
+      <div className="hidden lg:flex h-screen sticky top-0 shrink-0">
+        {sidebarContent}
+      </div>
+
+      {/* Mobile Drawer Overlay */}
+      {isOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 flex">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"
+            onClick={onClose}
+          />
+          {/* Drawer panel */}
+          <div className="relative z-10 h-full flex flex-col animate-slideInLeft">
+            {sidebarContent}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

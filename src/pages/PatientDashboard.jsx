@@ -184,11 +184,11 @@ const PatientDashboard = ({ activeTab }) => {
   if (loading) return <Loading message="Syncing patient portal..." />;
 
   return (
-    <div className="p-8 space-y-8 fade-in">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 lg:space-y-8 fade-in">
       
       {/* 1. MY MEDICAL PROFILE WORKSPACE */}
       {activeTab === 'my-profile' && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
           {/* Profile Card */}
           {patientProfile ? (
@@ -278,7 +278,7 @@ const PatientDashboard = ({ activeTab }) => {
               </div>
 
               {/* Vitals Cards Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 flex items-center justify-between">
                   <div>
                     <span className="text-[10px] uppercase font-bold text-slate-400">Circulatory Pressure</span>
@@ -353,7 +353,7 @@ const PatientDashboard = ({ activeTab }) => {
               </div>
             ) : (
               appointments.map((appt) => (
-                <div key={appt._id} className="p-6 hover:bg-slate-50/50 dark:hover:bg-slate-850/10 flex justify-between items-center gap-4 transition-all">
+                <div key={appt._id} className="p-4 sm:p-6 hover:bg-slate-50/50 dark:hover:bg-slate-850/10 flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center transition-all">
                   <div>
                     <div className="flex items-center gap-3 mb-1">
                       <span className="font-bold text-slate-800 dark:text-white">{appt.doctorId.name}</span>
@@ -385,7 +385,7 @@ const PatientDashboard = ({ activeTab }) => {
 
       {/* 3. MY PRESCRIPTIONS & AI WORKSPACE */}
       {activeTab === 'my-prescriptions' && (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           
           {/* Prescriptions List */}
           <div className="xl:col-span-1 space-y-6">

@@ -14,6 +14,7 @@ const App = () => {
   const { user, loading } = useAuth();
   const [activeTab, setActiveTab] = useState('');
   const [showRegister, setShowRegister] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Set default tab on login/auth change based on role
   useEffect(() => {
@@ -78,14 +79,22 @@ const App = () => {
   return (
     <div className="flex h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 overflow-hidden font-sans transition-colors duration-300">
       
-      {/* 1. Modern Collapsible Sidebar */}
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      {/* 1. Responsive Sidebar (desktop sticky | mobile drawer) */}
+      <Sidebar
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
 
       {/* 2. Main Content Board */}
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         
-        {/* Top Header with notifications and upgrade tools */}
-        <Header title={activeTab} />
+        {/* Top Header with hamburger, notifications and upgrade tools */}
+        <Header
+          title={activeTab}
+          onMenuClick={() => setSidebarOpen(true)}
+        />
         
         {/* Operational Dashboard Panel */}
         <main className="flex-grow">

@@ -150,13 +150,13 @@ const AdminDashboard = ({ activeTab }) => {
   const COLORS = ['#0e8ce6', '#14b8a6', '#8b5cf6', '#f43f5e', '#f59e0b'];
 
   return (
-    <div className="p-8 space-y-8 fade-in">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 lg:space-y-8 fade-in">
       
       {/* 1. ANALYTICS WORKSPACE */}
       {activeTab === 'analytics' && (
         <>
           {/* Dashboard Metric Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
             <StatCard
               title="Registered Patients"
               value={stats.totalPatients}
@@ -190,7 +190,7 @@ const AdminDashboard = ({ activeTab }) => {
           </div>
 
           {/* Recharts Graphical Board */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             {/* Appointment Queue Trend */}
             <div className="glass-card p-6 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 shadow-md">
               <div className="flex justify-between items-center mb-6">
@@ -251,7 +251,7 @@ const AdminDashboard = ({ activeTab }) => {
       {/* 2. CLINICAL STAFF PROVISIONING WORKSPACE */}
       {activeTab === 'staff' && (
         <div className="space-y-6">
-          <div className="flex justify-between items-center bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800/80">
+          <div className="flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center bg-white dark:bg-slate-900 p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800/80">
             <div>
               <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Medical Staff Roster</h3>
               <p className="text-xs text-slate-400 dark:text-slate-500">Add, view, or de-authorize clinic Doctors and Receptionists.</p>
@@ -266,7 +266,7 @@ const AdminDashboard = ({ activeTab }) => {
           </div>
 
           {/* Roster Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
             {staff.map((member) => (
               <div key={member._id} className="glass-card p-6 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 shadow hover:shadow-md transition-all relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-brand-500/5 to-clinical-500/0 rounded-bl-full pointer-events-none group-hover:scale-150 transition-all duration-500"></div>
@@ -420,7 +420,7 @@ const AdminDashboard = ({ activeTab }) => {
       {/* 2.5 GLOBAL PATIENT REGISTRY */}
       {activeTab === 'patients' && (
         <div className="space-y-6">
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800/80 flex justify-between items-center">
+          <div className="bg-white dark:bg-slate-900 p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800/80 flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center">
             <div>
               <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Global Patient Registry</h3>
               <p className="text-xs text-slate-400 dark:text-slate-500">Master access to all patient records, medical history, treatments, and instructions.</p>
@@ -459,7 +459,7 @@ const AdminDashboard = ({ activeTab }) => {
                     </span>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <div>
                       <h5 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
                         <ShieldCheck className="w-4 h-4 text-brand-500" /> Chronic Medical History
@@ -495,7 +495,7 @@ const AdminDashboard = ({ activeTab }) => {
       {/* 3. SAAS SUBSCRIPTION TIERS DESK */}
       {activeTab === 'subscriptions' && (
         <div className="space-y-6">
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800/80 flex justify-between items-center">
+          <div className="bg-white dark:bg-slate-900 p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800/80 flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center">
             <div>
               <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">SaaS Billing Console</h3>
               <p className="text-xs text-slate-400 dark:text-slate-500">Monitor active subscription matrix and configure account permissions.</p>
@@ -579,12 +579,12 @@ const AdminDashboard = ({ activeTab }) => {
       {/* 4. CLINIC LOGS AUDIT DESK */}
       {activeTab === 'usage' && (
         <div className="space-y-6">
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800/80">
+          <div className="bg-white dark:bg-slate-900 p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800/80">
             <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">System Core Diagnostics</h3>
             <p className="text-xs text-slate-400 dark:text-slate-500">Monitor active thread queries, Google Gemini API endpoints, and database loads.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
             {/* API Status */}
             <div className="glass-card p-6 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 shadow">
               <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
