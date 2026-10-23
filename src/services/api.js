@@ -1,5 +1,5 @@
 // Centralized API client with automatic JWT token injection
-
+const API_BASE_URL = 'https://hackathon-smit-backend-five.vercel.app';
 const parseApiResponse = async (response) => {
   const raw = await response.text();
   if (!raw) return {};
@@ -29,7 +29,10 @@ const request = async (url, options = {}) => {
   };
 
   try {
-    const response = await fetch(url, config);
+    const response = await fetch(
+  `${API_BASE_URL}${url.startsWith('/') ? url : `/${url}`}`,
+  config
+);
     const data = await parseApiResponse(response);
 
     if (!response.ok) {
